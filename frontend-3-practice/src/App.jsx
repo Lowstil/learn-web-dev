@@ -1,57 +1,120 @@
-// App — корневой компонент приложения.
-//
-// ЗАДАНИЕ
-// --------
-// Перенесите свою страницу выбора даты и времени из нативного JS
-// на React. У вас уже есть:
-//   - готовая вёрстка (HTML);
-//   - готовые стили (CSS);
-//   - рабочий код на нативном JS (валидация дат, рендер календаря,
-//     обработчики кликов, выбор слота).
-//
-// Теперь нужно то же самое сделать в React.
-//
-// ЧТО НУЖНО СДЕЛАТЬ
-// ------------------
-// 1. Разбить страницу на компоненты. Как именно — решайте сами.
-//    Обычно выделяют: шапку, подвал, календарь, сетку слотов,
-//    нижнюю панель.
-//
-// 2. Перенести вёрстку из HTML в JSX. Стили оставить как есть,
-//    просто положить их в тот же проект (например, в src/styles/
-//    или рядом с компонентами).
-//
-// 3. Заменить нативное состояние (переменные + прямые манипуляции
-//    с DOM) на useState. Какие именно данные должны жить в состоянии —
-//    подумайте сами. Скорее всего: текущий месяц, выбранный день,
-//    выбранное время, массив слотов.
-//
-// 4. Рендер календаря и слотов делать через JSX и .map(),
-//    без innerHTML и querySelector.
-//
-// 5. Обработчики кликов — через onClick прямо в JSX,
-//    без addEventListener.
-//
-// 6. Функции для работы с датами, которые вы уже написали
-//    на нативном JS (построение сетки календаря, сравнение дат,
-//    проверка «не раньше сегодня»), можно переиспользовать.
-//    Они чистые — не зависят от React. Создайте файл
-//    src/utils/date.js и перенесите их туда.
-//
-//
-// ПОДСКАЗКА
-// ---------
-// Если что-то не работает или непонятно, как перевести нативный
-// код на React — вернитесь к лекции. Там разбирались все
-// основные приёмы: состояние, пропсы, рендер списков, колбэки.
-//
-// Ниже — пустой каркас. Здесь можно начать писать.
+import { useState } from "react";
+import Header from "./components/Header";
+import StepIndicator from "./components/StepIndicator";
+import SummaryCard from "./components/SummaryCard";
+import Calendar from "./components/Calendar";
+import TimeSlots from "./components/TimeSlots";
+import ActionPanel from "./components/ActionPanel";
+import Footer from "./components/Footer";
+import { SERVER_DATA, getSlotsForDay } from "./data/slots";
 
 function App() {
+  // 1. Месяц и год, отображаемые в календаре (пользователь может листать их)
+  const [currentMonth, setCurrentMonth] = useState(9); // 9 = Октябрь
+  const [currentYear, setCurrentYear] = useState(2026);
+
+  // 2. Фактически выбранная дата (по умолчанию 15 октября 2026)
+  const [selectedDay, setSelectedDay] = useState(15);
+  const [selectedMonth, setSelectedMonth] = useState(9);
+  const [selectedYear, setSelectedYear] = useState(2026);
+
+  // 3. Фактически выбранное время (по умолчанию 14:00 из макета)
+  const [selectedTime, setSelectedTime] = useState("14:00");
+
+  // 4. Слоты для выбранного дня
+  const [slots, setSlots] = useState(() => getSlotsForDay(15));
+
+  // Обработчик выбора дня в календаре
+  const handleSelectDay = (day) => {
+    // Если кликнули на тот же день в том же месяце, ничего не меняем
+    if (
+      day === selectedDay &&
+      currentMonth === selectedMonth &&
+      currentYear === selectedYear
+    ) {
+      return;
+    }
+
+    setSelectedDay(day);
+    setSelectedMonth(currentMonth);
+    setSelectedYear(currentYear);
+
+    // ВАЖНО: сбрасываем время при смене дня!
+    setSelectedTime(null);
+
+    // Обновляем слоты для нового дня
+    setSlots(getSlotsForDay(day));
+  };
+
+  // Обработчик выбора слота времени
+  const handleSelectTime = (time) => {
+    setSelectedTime(time);
+  };
+
+  // Листание на предыдущий месяц
+  const handlePrevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear((y) => y - 1);
+    } else {
+      setCurrentMonth((m) => m - 1);
+    }
+  };
+
+  // Листание на следующий месяц
+  const handleNextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear((y) => y + 1);
+    } else {
+      setCurrentMonth((m) => m + 1);
+    }
+  };
+
   return (
-    <div>
-      {/* Начните отсюда. Например, разметьте .page, добавьте шапку,
-            основную область, подвал. */}
+    <div className="page">
+      <Header />
+      <StepIndicator />
+
+      <main className="main-content">
+        <div className="container">
+          <SummaryCard />
+
+          <h1 className="page-title">Шаг 3. Выберите удобный день и время визита</h1>
+
+          <div className="booking-layout">
+            <Calendar
+              currentYear={currentYear}
+              currentMonth={currentMonth}
+              selectedDay={selectedDay}
+              selectedMonth={selectedMonth}
+              selectedYear={selectedYear}
+              today={SERVER_DATA.today}
+              onSelectDay={handleSelectDay}
+              onPrevMonth={handlePrevMonth}
+              onNextMonth={handleNextMonth}
+            />
+
+            <TimeSlots
+              selectedDay={selectedDay}
+              selectedMonth={selectedMonth}
+              selectedYear={selectedYear}
+              selectedTime={selectedTime}
+              slots={slots}
+              onSelectTime={handleSelectTime}
+            />
+          </div>
+
+          <ActionPanel
+            selectedDay={selectedDay}
+            selectedMonth={selectedMonth}
+            selectedYear={selectedYear}
+            selectedTime={selectedTime}
+          />
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }
