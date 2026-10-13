@@ -1,13 +1,700 @@
-/* Стили страницы.
-   Пишите здесь. */
+/* ==========================================================================
+   СБРОС СТИЛЕЙ И БАЗОВЫЕ ПЕРЕМЕННЫЕ
+   ========================================================================== */
 
-* {
+:root {
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-text-main: #111827;
+  --color-text-muted: #6b7280;
+  --color-text-light: #9ca3af;
+  --color-disabled: #d1d5db;
+  --color-slot-disabled-bg: #f3f4f6;
+
+  /* Акцентные цвета */
+  --color-accent: #d97706;
+  --color-accent-hover: #b45309;
+  --color-accent-gold: #f59e0b;
+  --color-success: #16a34a;
+  --color-danger: #ef4444;
+
+  /* Тёмные элементы */
+  --color-dark: #111827;
+  --color-dark-hover: #1f2937;
+  --color-footer-bg: #0b0d10;
+  --color-footer-border: #1f2937;
+
+  /* Шрифты и радиусы */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-pill: 9999px;
+
+  /* Переходы */
+  --transition: all 0.2s ease-in-out;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
-  font-family: sans-serif;
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* ==========================================================================
+   ОСНОВНЫЕ КОМПОНЕНТЫ И СЕТКА
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Кнопки */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-dark {
+  background-color: var(--color-dark);
+  color: #ffffff;
+}
+
+.btn-dark:hover {
+  background-color: var(--color-dark-hover);
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.15);
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: var(--color-text-main);
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+/* ==========================================================================
+   ШАПКА САЙТА (HEADER)
+   ========================================================================== */
+
+.site-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-badge {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-dark);
+  border-radius: var(--radius-sm);
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--color-dark);
+}
+
+.main-nav {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.nav-link:hover {
+  color: var(--color-dark);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-phone {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.header-phone:hover {
+  color: var(--color-accent);
+}
+
+.btn-header {
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   ПОЛОСА ШАГОВ (STEPPER)
+   ========================================================================== */
+
+.steps-nav {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 14px 0;
+}
+
+.steps-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+/* Завершенные шаги */
+.step-completed {
+  color: #374151;
+  font-weight: 500;
+}
+
+.step-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-success);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Текущий активный шаг (Шаг 3) */
+.step-current {
+  background-color: #f3f4f6;
+  border: 1px solid var(--color-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Будущие неактивные шаги */
+.step-upcoming {
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+/* ==========================================================================
+   ОСНОВНОЙ КОНТЕНТ (MAIN)
+   ========================================================================== */
+
+.main-content {
+  padding: 32px 0 48px;
+}
+
+/* Карточка выбранного мастера и услуги */
+.summary-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 24px;
+  margin-bottom: 28px;
+}
+
+.summary-text {
+  font-size: 14px;
+  color: var(--color-dark);
+}
+
+.summary-text strong {
+  font-weight: 600;
+}
+
+.summary-change-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.summary-change-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* Заголовок страницы */
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 24px;
+}
+
+/* Двухколоночная сетка: Календарь + Слоты */
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.booking-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================================================
+   КАЛЕНДАРЬ (ЛЕВАЯ КОЛОНКА)
+   ========================================================================== */
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.calendar-month {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-cal-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background-color: #f9fafb;
+  border: 1px solid var(--color-border);
+  font-size: 16px;
+  color: #374151;
+}
+
+.btn-cal-nav:hover {
+  background-color: #e5e7eb;
+}
+
+.calendar-table {
+  width: 100%;
+}
+
+.weekdays-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.day-btn {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-dark);
+  background: transparent;
+}
+
+.day-btn:not(:disabled):hover {
+  background-color: #f3f4f6;
+}
+
+/* Дни прошлого и будущего месяцев */
+.day-other-month {
+  color: var(--color-disabled);
+  cursor: default;
+}
+
+/* Выбранный день (15 октября) */
+.day-selected {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.day-selected:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Особый выходной/праздничный день (18 число красным) */
+.day-weekend {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   СЛОТЫ ВРЕМЕНИ (ПРАВАЯ КОЛОНКА)
+   ========================================================================== */
+
+.slots-header {
+  margin-bottom: 24px;
+}
+
+.slots-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 6px;
+}
+
+.slots-duration {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.slots-group {
+  margin-bottom: 20px;
+}
+
+.slots-group:last-child {
+  margin-bottom: 0;
+}
+
+.slots-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+.slots-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.slot-btn {
+  padding: 10px 18px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+
+.slot-btn:not(:disabled):hover {
+  border-color: #cbd5e1;
+  background-color: #f9fafb;
+}
+
+/* Выбранный слот (14:00) */
+.slot-selected {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.slot-selected:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.slot-check {
+  font-size: 12px;
+}
+
+/* Занятый слот */
+.slot-disabled {
+  background-color: var(--color-slot-disabled-bg);
+  border-color: transparent;
+  color: var(--color-text-light);
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   НИЖНЯЯ ПАНЕЛЬ ДЕЙСТВИЙ (ACTION PANEL)
+   ========================================================================== */
+
+.action-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 20px 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.action-selection {
+  font-size: 14px;
+}
+
+.selection-label {
+  color: var(--color-text-muted);
+  margin-right: 6px;
+}
+
+.selection-value {
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.action-btn {
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   ПОДВАЛ САЙТА (FOOTER)
+   ========================================================================== */
+
+.site-footer {
+  background-color: var(--color-footer-bg);
+  color: #ffffff;
+  padding: 48px 0 24px;
+  margin-top: 56px;
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+
+.footer-brand-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.footer-description {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  max-width: 320px;
+}
+
+.footer-heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.footer-text {
+  font-size: 13px;
+  color: #d1d5db;
+  margin-bottom: 8px;
+}
+
+.footer-phone {
+  margin-bottom: 8px;
+}
+
+.footer-phone a {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.footer-phone a:hover {
+  color: var(--color-accent-gold);
+}
+
+.footer-link {
+  color: var(--color-text-light);
+  font-size: 13px;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+.footer-highlight {
+  font-size: 13px;
+  color: var(--color-accent-gold);
+  margin-top: 6px;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-footer-border);
+  padding-top: 24px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-separator {
+  color: #4b5563;
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ (RESPONSIVE)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .steps-container {
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 6px;
+  }
+
+  .footer-columns {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .action-panel {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
 }

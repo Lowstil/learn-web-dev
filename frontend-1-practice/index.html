@@ -3,24 +3,259 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Выбор даты и времени</title>
+    <title>Выбор даты и времени — BARBER & CO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!--
-      ЗАДАНИЕ
-      ========
-      Сверстать страницу выбора даты и времени по своему макету.
+    <!-- Шапка сайта -->
+    <header class="site-header">
+      <div class="container header-container">
+        <a href="#" class="logo">
+          <span class="logo-badge"></span>
+          <span class="logo-text">BARBER &amp; CO</span>
+        </a>
 
-      Пока это только вёрстка. Никакого JavaScript — ни кликов,
-      ни переходов, ни выбора дня. Всё статично.
+        <nav class="main-nav">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#" class="nav-link">Главная</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Услуги</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Мастера</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Отзывы</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Контакты</a></li>
+          </ul>
+        </nav>
 
-      Стили пишите в styles.css. Разметку — здесь.
-    -->
+        <div class="header-actions">
+          <a href="tel:+74951234567" class="header-phone">+7 (495) 123-45-67</a>
+          <button type="button" class="btn btn-dark btn-header">Онлайн-запись</button>
+        </div>
+      </div>
+    </header>
 
-    <div class="page">
-      <!-- Начните отсюда. Разметьте шапку, основную область
-           с календарём и слотами, подвал. -->
-    </div>
+    <!-- Полоса шагов оформления -->
+    <nav class="steps-nav" aria-label="Этапы онлайн-записи">
+      <div class="container steps-container">
+        <div class="step-item step-completed">
+          <span class="step-check" aria-hidden="true">&#10003;</span>
+          <span class="step-title">1. Мастер</span>
+        </div>
+
+        <div class="step-item step-completed">
+          <span class="step-check" aria-hidden="true">&#10003;</span>
+          <span class="step-title">2. Услуга</span>
+        </div>
+
+        <div class="step-item step-current" aria-current="step">
+          <span class="step-badge">3</span>
+          <span class="step-title">3. Дата и время</span>
+        </div>
+
+        <div class="step-item step-upcoming">
+          <span class="step-num">4</span>
+          <span class="step-title">4. Контакты</span>
+        </div>
+
+        <div class="step-item step-upcoming">
+          <span class="step-num">5</span>
+          <span class="step-title">5. Подтверждение</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Основной контент страницы -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Информационная плашка о выбранном мастере и услуге -->
+        <section class="summary-card" aria-label="Выбранная услуга">
+          <p class="summary-text">
+            <strong>Мастер: Дмитрий Орлов</strong> &bull;
+            <strong>Услуга: Комплекс Стрижка + Борода (75 мин, 2 700 &#8381;)</strong>
+          </p>
+          <a href="#" class="summary-change-link">Изменить</a>
+        </section>
+
+        <!-- Заголовок страницы -->
+        <h1 class="page-title">Шаг 3. Выберите удобный день и время визита</h1>
+
+        <!-- Двухколоночный блок: Календарь и Слоты времени -->
+        <div class="booking-layout">
+          <!-- Левая колонка: Календарь -->
+          <section class="booking-card calendar-card" aria-label="Календарь записи">
+            <div class="calendar-header">
+              <h2 class="calendar-month">Октябрь 2026</h2>
+              <div class="calendar-nav">
+                <button type="button" class="btn-cal-nav" aria-label="Предыдущий месяц">&#8249;</button>
+                <button type="button" class="btn-cal-nav" aria-label="Следующий месяц">&#8250;</button>
+              </div>
+            </div>
+
+            <div class="calendar-table">
+              <div class="weekdays-row" aria-hidden="true">
+                <span>Пн</span>
+                <span>Вт</span>
+                <span>Ср</span>
+                <span>Чт</span>
+                <span>Пт</span>
+                <span>Сб</span>
+                <span>Вс</span>
+              </div>
+
+              <div class="days-grid">
+                <!-- Неделя 1 -->
+                <button type="button" class="day-btn day-other-month" disabled>28</button>
+                <button type="button" class="day-btn day-other-month" disabled>29</button>
+                <button type="button" class="day-btn day-other-month" disabled>30</button>
+                <button type="button" class="day-btn">1</button>
+                <button type="button" class="day-btn">2</button>
+                <button type="button" class="day-btn">3</button>
+                <button type="button" class="day-btn">4</button>
+
+                <!-- Неделя 2 -->
+                <button type="button" class="day-btn">5</button>
+                <button type="button" class="day-btn">6</button>
+                <button type="button" class="day-btn">7</button>
+                <button type="button" class="day-btn">8</button>
+                <button type="button" class="day-btn">9</button>
+                <button type="button" class="day-btn">10</button>
+                <button type="button" class="day-btn">11</button>
+
+                <!-- Неделя 3 -->
+                <button type="button" class="day-btn">12</button>
+                <button type="button" class="day-btn">13</button>
+                <button type="button" class="day-btn">14</button>
+                <button type="button" class="day-btn day-selected" aria-pressed="true">15</button>
+                <button type="button" class="day-btn">16</button>
+                <button type="button" class="day-btn">17</button>
+                <button type="button" class="day-btn day-weekend">18</button>
+
+                <!-- Неделя 4 -->
+                <button type="button" class="day-btn">19</button>
+                <button type="button" class="day-btn">20</button>
+                <button type="button" class="day-btn">21</button>
+                <button type="button" class="day-btn">22</button>
+                <button type="button" class="day-btn">23</button>
+                <button type="button" class="day-btn">24</button>
+                <button type="button" class="day-btn">25</button>
+
+                <!-- Неделя 5 -->
+                <button type="button" class="day-btn">26</button>
+                <button type="button" class="day-btn">27</button>
+                <button type="button" class="day-btn">28</button>
+                <button type="button" class="day-btn">29</button>
+                <button type="button" class="day-btn">30</button>
+                <button type="button" class="day-btn">31</button>
+                <button type="button" class="day-btn day-other-month" disabled>1</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Правая колонка: Слоты времени -->
+          <section class="booking-card slots-card" aria-label="Свободные слоты времени">
+            <div class="slots-header">
+              <h2 class="slots-title">Свободные слоты: 15 октября (Чт)</h2>
+              <p class="slots-duration">Длительность выбранной процедуры &mdash; 75 минут</p>
+            </div>
+
+            <!-- Группа: Утро -->
+            <div class="slots-group">
+              <h3 class="slots-group-title">Утро</h3>
+              <div class="slots-list">
+                <button type="button" class="slot-btn">10:00</button>
+                <button type="button" class="slot-btn slot-disabled" disabled>11:30 (занято)</button>
+              </div>
+            </div>
+
+            <!-- Группа: День -->
+            <div class="slots-group">
+              <h3 class="slots-group-title">День</h3>
+              <div class="slots-list">
+                <button type="button" class="slot-btn">13:00</button>
+                <button type="button" class="slot-btn slot-selected" aria-pressed="true">
+                  14:00 <span class="slot-check" aria-hidden="true">&#10003;</span>
+                </button>
+                <button type="button" class="slot-btn">15:30</button>
+              </div>
+            </div>
+
+            <!-- Группа: Вечер -->
+            <div class="slots-group">
+              <h3 class="slots-group-title">Вечер</h3>
+              <div class="slots-list">
+                <button type="button" class="slot-btn">17:00</button>
+                <button type="button" class="slot-btn slot-disabled" disabled>18:30 (занято)</button>
+                <button type="button" class="slot-btn">20:00</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Нижняя панель действий -->
+        <section class="action-panel" aria-label="Подтверждение выбора">
+          <div class="action-selection">
+            <span class="selection-label">Выбрано:</span>
+            <span class="selection-value">Четверг, 15 октября 2026 в 14:00</span>
+          </div>
+
+          <div class="action-buttons">
+            <a href="#" class="btn btn-secondary action-btn">
+              &larr; Назад к услугам
+            </a>
+            <a href="#" class="btn btn-dark action-btn">
+              Перейти к контактам &rarr;
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-columns">
+          <!-- Колонка 1: О бренде -->
+          <div class="footer-col footer-col-brand">
+            <h2 class="footer-brand-title">BARBER &amp; CO</h2>
+            <p class="footer-description">
+              Премиальный мужской барбершоп в центре Москвы. Безупречное качество стрижек, бритья и ухода.
+            </p>
+          </div>
+
+          <!-- Колонка 2: Контакты -->
+          <div class="footer-col footer-col-contacts">
+            <h3 class="footer-heading">Контакты</h3>
+            <p class="footer-text">г. Москва, ул. Тверская, 12</p>
+            <p class="footer-phone">
+              <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+            </p>
+            <p class="footer-text">
+              <a href="mailto:info@barberco.ru" class="footer-link">info@barberco.ru</a>
+            </p>
+          </div>
+
+          <!-- Колонка 3: Режим работы -->
+          <div class="footer-col footer-col-hours">
+            <h3 class="footer-heading">Режим работы</h3>
+            <p class="footer-text">Пн &mdash; Пт: 09:00 &mdash; 21:00</p>
+            <p class="footer-text">Сб &mdash; Вс: 10:00 &mdash; 20:00</p>
+            <p class="footer-highlight">Без выходных и перерывов</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2026 BARBER &amp; CO. Все права защищены.</p>
+          <div class="footer-legal">
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <span class="footer-separator">&bull;</span>
+            <a href="#" class="footer-link">Публичная оферта</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
